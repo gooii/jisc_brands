@@ -5,9 +5,9 @@
 
 }).call(this);
 ;(function() {
-  var app;
+  var JiscBrandService, app;
 
-  this.JiscBrandService = (function() {
+  JiscBrandService = (function() {
     JiscBrandService.$inject = ['gooii.ng.loggerService', '$rootScope', '$location', 'rx', '$window'];
 
     function JiscBrandService(logFactory, $rootScope, $location, rx, $window) {
@@ -97,7 +97,7 @@
 ;(function() {
   var app;
 
-  app = angular.module('jisc.brands', []);
+  app = angular.module('jisc.brands');
 
   app.provider("staticContentRouting", function() {
     var dummy, setup;

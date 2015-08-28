@@ -1,4 +1,4 @@
-class @JiscBrandService
+class JiscBrandService
   @$inject: ['gooii.ng.loggerService', '$rootScope', '$location', 'rx', '$window']
   constructor: (logFactory, @$rootScope, @$location, @rx, @$window) ->
     if logFactory

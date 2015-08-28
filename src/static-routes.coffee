@@ -1,4 +1,4 @@
-app = angular.module('jisc.brands',[])
+app = angular.module('jisc.brands')
 
 app.provider "staticContentRouting", () ->
   setup = ($routeProvider, window) ->
