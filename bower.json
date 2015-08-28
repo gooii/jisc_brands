@@ -12,15 +12,10 @@
     "bower.json",
     "package.json",
     "jisc_brands.iml",
-    "README.md",
-    "dist",
     "grunt",
     "node_modules"
   ],
   "dependencies": {
-    "angular": "~1.2",
-    "angular-rx": "~0.0.3",
-    "angular-gooii": "git@github.com:gooii/angular-gooii#1.0.2"
   },
   "devDependencies": {}
 }
