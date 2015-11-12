@@ -101,7 +101,7 @@
 
   app.provider("staticContentRouting", function() {
     var dummy, setup;
-    setup = function($routeProvider, window) {
+    setup = function($routeProvider, window, brandMapper) {
       var brands, staticPageMap,
         _this = this;
       staticPageMap = {};
@@ -113,13 +113,16 @@
             reloadOnSearch: false
           });
         });
+      } else {
+        console.info('No routes found on window');
       }
       if (window.brands) {
         brands = window.brands;
         return _.forEach(brands, function(brand) {
           var _this = this;
-          $routeProvider.when("" + brand.url, home);
-          $routeProvider.when("" + brand.url + "/results", results);
+          if (brandMapper) {
+            brandMapper(brand, $routeProvider);
+          }
           return _.forEach(staticPageMap, function(template, path) {
             console.log('Mapping brand', "" + brand.url + "/" + path, ("/templates/" + brand.id + "/") + template);
             return $routeProvider.when("" + brand.url + "/" + path, {

@@ -1,7 +1,9 @@
 app = angular.module('jisc.brands')
 
 app.provider "staticContentRouting", () ->
-  setup = ($routeProvider, window) ->
+  # brandMapper is an optional function for custom brand route mapping, its called like :
+  # brandMapper(brand, $routeProvider)
+  setup = ($routeProvider, window, brandMapper) ->
 #    console.log('Setup route provider', window.routes, window.brands)
 
     staticPageMap = {
@@ -16,6 +18,8 @@ app.provider "staticContentRouting", () ->
           templateUrl   : "/templates/" + template,
           reloadOnSearch: false
         })
+    else
+      console.info 'No routes found on window'
 
     ###############################################################################
     # Branded URL handling                                                        #
@@ -25,12 +29,8 @@ app.provider "staticContentRouting", () ->
       brands = window.brands
 
       _.forEach brands, (brand) ->
-        # map the branded URL to our /home route
-        #
-        $routeProvider.when "#{brand.url}", home
-        # map the branded URL + /results to our results route
-        #
-        $routeProvider.when "#{brand.url}/results", results
+        if brandMapper
+          brandMapper(brand, $routeProvider)
 
         # map all static routes to the brand as well
         _.forEach staticPageMap, (template, path) =>
