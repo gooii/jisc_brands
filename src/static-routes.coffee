@@ -3,9 +3,7 @@ app = angular.module('jisc.brands')
 app.provider "staticContentRouting", () ->
   # brandMapper is an optional function for custom brand route mapping, its called like :
   # brandMapper(brand, $routeProvider)
-  setup = ($routeProvider, window, brandMapper) ->
-#    console.log('Setup route provider', window.routes, window.brands)
-
+  setup = ($routeProvider, window, controller, resolver, brandMapper) ->
     staticPageMap = {
     }
 
@@ -15,9 +13,10 @@ app.provider "staticContentRouting", () ->
       # the static page map is configured via a global js var which comes from the routes.js file in jja_content
       _.forEach staticPageMap, (template, path) =>
         $routeProvider.when("/#{path}", {
-          templateUrl   : "/templates/" + template,
-          reloadOnSearch: false
-        })
+          templateUrl    : "/templates/" + template,
+          reloadOnSearch : false
+          controller     : controller
+          resolve        : resolver})
     else
       console.info 'No routes found on window'
 
@@ -36,9 +35,9 @@ app.provider "staticContentRouting", () ->
         _.forEach staticPageMap, (template, path) =>
           console.log('Mapping brand',"#{brand.url}/#{path}","/templates/#{brand.id}/" + template)
           $routeProvider.when("#{brand.url}/#{path}", {
-            templateUrl   : "/templates/#{brand.id}/" + template,
-            reloadOnSearch: false
-          })
+            templateUrl    : "/templates/#{brand.id}/" + template,
+            reloadOnSearch : false
+            resolve        : resolver})
 
   dummy = () ->
     # Do nothing
